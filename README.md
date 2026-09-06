@@ -1,5 +1,10 @@
 # pr-pathfinder
 
+[![CI](https://github.com/datruz37-sudo/pr-pathfinder/actions/workflows/ci.yml/badge.svg)](https://github.com/datruz37-sudo/pr-pathfinder/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://github.com/datruz37-sudo/pr-pathfinder/actions/workflows/scorecard.yml/badge.svg)](https://github.com/datruz37-sudo/pr-pathfinder/actions/workflows/scorecard.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+
 `pr-pathfinder` is a local, explainable CLI that finds friction in an open-source repository's
 first-contributor journey.
 
