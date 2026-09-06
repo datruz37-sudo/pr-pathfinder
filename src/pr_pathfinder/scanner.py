@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from pr_pathfinder.models import Finding, Rule, RuleContext, ScanResult
 from pr_pathfinder.rules import builtin_rules

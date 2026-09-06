@@ -3,7 +3,6 @@ from pathlib import Path
 from pr_pathfinder.models import Severity
 from pr_pathfinder.scanner import scan_repository
 
-
 FIXTURES = Path(__file__).parent / "fixtures"
 
 

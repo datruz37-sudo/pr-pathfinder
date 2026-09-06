@@ -6,7 +6,6 @@ import json
 
 from pr_pathfinder.models import ScanResult
 
-
 _SYMBOLS = {"error": "ERR", "warning": "WARN", "info": "INFO"}
 
 

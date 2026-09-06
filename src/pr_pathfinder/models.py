@@ -16,7 +16,7 @@ class Severity(IntEnum):
     ERROR = 3
 
     @classmethod
-    def parse(cls, value: str) -> "Severity":
+    def parse(cls, value: str) -> Severity:
         try:
             return cls[value.upper()]
         except KeyError as exc:

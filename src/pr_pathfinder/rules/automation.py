@@ -23,7 +23,7 @@ class WorkflowPresenceRule:
                 severity=Severity.WARNING,
                 title="No pull-request CI workflow detected",
                 detail="A first-time contributor cannot get automated feedback on a patch.",
-                recommendation="Add a workflow triggered by pull_request that runs the documented checks.",
+                recommendation="Add a pull_request workflow that runs the documented checks.",
                 path=".github/workflows/",
             )
         ]

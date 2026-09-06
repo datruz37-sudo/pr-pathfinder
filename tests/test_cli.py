@@ -3,7 +3,6 @@ from pathlib import Path
 
 from pr_pathfinder.cli import main
 
-
 FIXTURES = Path(__file__).parent / "fixtures"
 
 

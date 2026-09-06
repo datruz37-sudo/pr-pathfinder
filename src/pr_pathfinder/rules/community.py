@@ -52,7 +52,7 @@ class CodeOfConductContactRule:
                 rule_id=self.rule_id,
                 severity=Severity.WARNING,
                 title="Code of conduct lacks a private contact",
-                detail="Contributors are told what behavior is expected but not where to report abuse.",
+                detail="Contributors know the expected behavior but not where to report abuse.",
                 recommendation="Add a monitored email address or private reporting form.",
                 path=path,
             )
