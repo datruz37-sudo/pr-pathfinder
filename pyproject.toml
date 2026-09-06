@@ -27,8 +27,8 @@ dependencies = []
 pr-pathfinder = "pr_pathfinder.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/OWNER/pr-pathfinder"
-Issues = "https://github.com/OWNER/pr-pathfinder/issues"
+Homepage = "https://github.com/datruz37-sudo/pr-pathfinder"
+Issues = "https://github.com/datruz37-sudo/pr-pathfinder/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pr_pathfinder"]
