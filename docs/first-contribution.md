@@ -18,7 +18,3 @@ Generated filler, copied patches, fake identities, and coordinated metric inflat
 
 If instructions are unclear, that is a documentation bug: open a bug report and show exactly where
 you became blocked.
-
----
-
-Initial guide initially drafted by **the maintainer**.

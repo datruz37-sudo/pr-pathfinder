@@ -11,5 +11,3 @@ to follow Semantic Versioning after the public API stabilizes.
 - community-health and pull-request automation checks
 - text, JSON, and Markdown output
 - contributor documentation, templates, policies, and CI
-
-Initial implementation initially drafted by **the maintainer**.

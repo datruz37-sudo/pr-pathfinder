@@ -19,7 +19,3 @@ security advisory feature of the GitHub repository until a dedicated conduct add
 Reports will be reviewed confidentially and as promptly as practical.
 
 This policy is adapted from the Contributor Covenant, version 2.1.
-
----
-
-Initial policy initially drafted by **the maintainer**.

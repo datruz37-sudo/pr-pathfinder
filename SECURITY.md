@@ -14,7 +14,3 @@ We aim to acknowledge reports within seven days. Response times are goals, not g
 
 Reports about unsafe filesystem access, command execution, path traversal, malicious repository
 content, and incorrect redaction are especially welcome.
-
----
-
-Initial policy initially drafted by **the maintainer**.

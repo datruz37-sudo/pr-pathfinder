@@ -68,7 +68,3 @@ experience. Maintainers will explain requested changes and avoid unexplained clo
 
 Follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Report vulnerabilities privately as described in
 [SECURITY.md](SECURITY.md).
-
----
-
-Initial guide initially drafted by **the maintainer**.

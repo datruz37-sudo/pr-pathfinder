@@ -40,7 +40,3 @@ This roadmap describes product gaps, not a promise of dates or a quota of pull r
 
 Every item should be implemented because users need it. No roadmap item should be fragmented into
 low-value changes for the purpose of manufacturing contribution metrics.
-
----
-
-Initial roadmap initially drafted by **the maintainer**.

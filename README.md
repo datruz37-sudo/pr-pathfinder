@@ -7,8 +7,7 @@ It does not execute project code, call an external API, upload repository conten
 community health into a mysterious score. Every finding names the evidence, explains why it
 matters, and recommends a concrete fix.
 
-> Project status: early alpha. The initial implementation was initially drafted by
-> **the maintainer** and is intended to grow through reviewed community contributions.
+> Project status: early alpha. It is intended to grow through reviewed community contributions.
 
 ## Why this exists
 
