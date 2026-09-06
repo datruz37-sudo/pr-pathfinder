@@ -1,0 +1,83 @@
+# pr-pathfinder
+
+`pr-pathfinder` is a local, explainable CLI that finds friction in an open-source repository's
+first-contributor journey.
+
+It does not execute project code, call an external API, upload repository content, or turn
+community health into a mysterious score. Every finding names the evidence, explains why it
+matters, and recommends a concrete fix.
+
+> Project status: early alpha. The initial implementation was initially drafted by
+> **the maintainer** and is intended to grow through reviewed community contributions.
+
+## Why this exists
+
+A repository can have excellent code and still be difficult to contribute to. Newcomers often
+lose time looking for setup steps, guessing which checks CI expects, or discovering that security
+and conduct contacts are missing. Maintainers usually notice these gaps only after a contributor
+gives up.
+
+`pr-pathfinder` makes that path testable before someone has to struggle through it.
+
+## Quick start
+
+Python 3.11 or newer is required.
+
+```bash
+python -m pip install -e .
+pr-pathfinder check .
+```
+
+Machine-readable and CI-friendly reports are built in:
+
+```bash
+pr-pathfinder check . --format json --fail-on error
+pr-pathfinder check . --format markdown --fail-on warning
+pr-pathfinder rules
+```
+
+Until the first package release, clone the repository and install it in an isolated environment.
+
+## What the first release checks
+
+- README, license, contributor guide, code of conduct, and security policy presence
+- actionable setup, test, and pull-request guidance in `CONTRIBUTING.md`
+- a private conduct-reporting route
+- issue and pull-request templates
+- pull-request CI that appears to run a test, check, lint, or build step
+
+The first release intentionally uses conservative, local checks. A missing file does not prove a
+project is unhealthy, and a present file does not prove its process works. Findings are review
+prompts, not moral judgments.
+
+## Output philosophy
+
+- **Explainable:** each rule has a stable identifier and remediation.
+- **Deterministic:** the same local tree produces the same result.
+- **Private:** source contents stay on the machine.
+- **Safe by default:** scanning never executes the target repository.
+- **Extensible:** a rule is a small Python object plus focused fixtures and tests.
+
+## Contributing
+
+Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the
+[first contribution guide](docs/first-contribution.md). Rule proposals should describe real
+contributor friction and deterministic evidence. We will not split one change into artificial PRs
+or accept low-value patches merely to inflate contributor metrics.
+
+Good contributions include:
+
+- a well-evidenced rule with positive and negative fixtures;
+- support for a new ecosystem's conventional files;
+- clearer remediation copy;
+- accessibility or localization improvements;
+- reporter and CI integrations that preserve offline behavior.
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md). Near-term work focuses on configuration, ecosystem-aware checks,
+SARIF output, and realistic fixture repositories.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

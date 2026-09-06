@@ -1,0 +1,9 @@
+name: Bug report
+description: Report reproducible behavior
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+    validations:
+      required: true

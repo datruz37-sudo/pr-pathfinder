@@ -1,0 +1,35 @@
+name: Propose a rule
+description: Suggest an explainable contributor-onboarding check
+title: "rule: "
+labels: ["type: rule", "status: triage"]
+body:
+  - type: textarea
+    id: friction
+    attributes:
+      label: Contributor friction
+      description: What specific obstacle does a newcomer encounter?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Detectable evidence
+      description: Which local files or facts can detect it deterministically?
+    validations:
+      required: true
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Actionable recommendation
+      description: What should the maintainer do when the rule fires?
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Constraints
+      options:
+        - label: The rule can run offline and does not collect repository contents.
+          required: true
+        - label: The rule does not require executing untrusted project code.
+          required: true

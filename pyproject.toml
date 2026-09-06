@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pr-pathfinder"
+version = "0.1.0"
+description = "Explainable contributor-onboarding checks for open-source repositories"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+authors = [{name = "pr-pathfinder contributors"}]
+keywords = ["open-source", "contributors", "onboarding", "github", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.scripts]
+pr-pathfinder = "pr_pathfinder.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/OWNER/pr-pathfinder"
+Issues = "https://github.com/OWNER/pr-pathfinder/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pr_pathfinder"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
