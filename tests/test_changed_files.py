@@ -64,6 +64,13 @@ def test_backslash_entries_match(tmp_path: Path) -> None:
     assert "docs/guide.md" in listed
 
 
+def test_bom_comments_and_blank_lines_are_ignored(tmp_path: Path) -> None:
+    listing = tmp_path / "changed.txt"
+    listing.write_bytes(b"\xef\xbb\xbfREADME.md\n# only the readme\n\n")
+
+    assert load_changed_files(listing) == {"README.md"}
+
+
 def _write_list(tmp_path: Path, content: str) -> Path:
     listing = tmp_path / "changed.txt"
     listing.write_text(content, encoding="utf-8")

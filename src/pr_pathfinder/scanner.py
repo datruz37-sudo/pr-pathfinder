@@ -24,7 +24,7 @@ def load_changed_files(path: Path) -> frozenset[str]:
     """Read a list of repo-relative paths (one per line, `#` comments allowed)."""
 
     try:
-        lines = path.read_text(encoding="utf-8").splitlines()
+        lines = path.read_text(encoding="utf-8-sig").splitlines()
     except FileNotFoundError as exc:
         raise ValueError(
             f"Changed-files list not found: {path}. Generate it with `git diff --name-only`."
