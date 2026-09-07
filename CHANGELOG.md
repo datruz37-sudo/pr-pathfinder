@@ -3,7 +3,9 @@
 All notable changes will be documented here. The format follows Keep a Changelog, and releases aim
 to follow Semantic Versioning after the public API stabilizes.
 
-## [Unreleased]
+## [0.1.0] - 2026-09-07
+
+First public release.
 
 ### Added
 
