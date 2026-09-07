@@ -7,9 +7,7 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 
 def test_json_output_is_machine_readable(capsys) -> None:
-    exit_code = main(
-        ["check", str(FIXTURES / "minimal"), "--format", "json", "--fail-on", "none"]
-    )
+    exit_code = main(["check", str(FIXTURES / "minimal"), "--format", "json", "--fail-on", "none"])
 
     payload = json.loads(capsys.readouterr().out)
     assert exit_code == 0
@@ -26,3 +24,11 @@ def test_rules_lists_stable_identifiers(capsys) -> None:
     output = capsys.readouterr().out
     assert "community/readme" in output
     assert "automation/continuous-integration" in output
+
+
+def test_sarif_output_is_machine_readable(capsys) -> None:
+    exit_code = main(["check", str(FIXTURES / "minimal"), "--format", "sarif", "--fail-on", "none"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert exit_code == 0
+    assert payload["version"] == "2.1.0"

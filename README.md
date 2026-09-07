@@ -37,20 +37,32 @@ Machine-readable and CI-friendly reports are built in:
 ```bash
 pr-pathfinder check . --format json --fail-on error
 pr-pathfinder check . --format markdown --fail-on warning
+pr-pathfinder check . --format sarif --fail-on warning
 pr-pathfinder rules
 ```
+
+SARIF 2.1.0 output is suitable for CI and code-scanning integrations. The command only reads the
+target checkout; uploading the resulting file is an explicit choice of the surrounding workflow.
 
 ## Configuration
 
 Some rules are right in general but wrong for a specific project. Add an optional
-`pr-pathfinder.toml` next to the repository root with an `ignore` list of rule ids:
+`pr-pathfinder.toml` next to the repository root. You can scan only selected rules, ignore
+specific rules, or adjust severity without changing the scanner's built-in defaults:
 
 ```toml
+include = ["community/license", "agentready/instructions"]
 ignore = ["community/license"]
+
+[severity]
+"automation/continuous-integration" = "error"
+"agentready/instructions" = "info"
 ```
 
-Run `pr-pathfinder rules` to list stable identifiers. Unknown ids are rejected
-with an error. Without the file, every rule runs: the default behaviour never changes.
+Run `pr-pathfinder rules` to list stable identifiers. `ignore` wins when a rule appears in
+both lists. Unknown ids are rejected with an error, as are unknown settings and severity
+values. Valid severities are `info`, `warning`, and `error`. Without the file, every rule
+runs at its built-in severity: the default behaviour never changes.
 
 Until the first package release, clone the repository and install it in an isolated environment.
 

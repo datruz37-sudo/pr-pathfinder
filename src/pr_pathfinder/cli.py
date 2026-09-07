@@ -8,7 +8,7 @@ from pathlib import Path
 
 from pr_pathfinder import __version__
 from pr_pathfinder.models import Severity
-from pr_pathfinder.reporters import render_json, render_markdown, render_text
+from pr_pathfinder.reporters import render_json, render_markdown, render_sarif, render_text
 from pr_pathfinder.rules import builtin_rules
 from pr_pathfinder.scanner import scan_repository
 
@@ -25,7 +25,7 @@ def build_parser() -> argparse.ArgumentParser:
     check.add_argument("path", nargs="?", default=".", help="repository path (default: current)")
     check.add_argument(
         "--format",
-        choices=("text", "json", "markdown"),
+        choices=("text", "json", "markdown", "sarif"),
         default="text",
         help="report format",
     )
@@ -54,7 +54,12 @@ def main(argv: list[str] | None = None) -> int:
     except (OSError, UnicodeError, ValueError) as exc:
         parser.error(str(exc))
 
-    renderers = {"text": render_text, "json": render_json, "markdown": render_markdown}
+    renderers = {
+        "text": render_text,
+        "json": render_json,
+        "markdown": render_markdown,
+        "sarif": render_sarif,
+    }
     print(renderers[args.format](result))
     if args.fail_on == "none":
         return 0
