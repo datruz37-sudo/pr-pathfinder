@@ -7,6 +7,7 @@ to follow Semantic Versioning after the public API stabilizes.
 
 ### Added
 
+- optional `pr-pathfinder.toml` configuration with an `ignore` list of rule ids
 - initial local scanner and explainable rule model
 - community-health and pull-request automation checks
 - text, JSON, and Markdown output

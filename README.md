@@ -40,6 +40,18 @@ pr-pathfinder check . --format markdown --fail-on warning
 pr-pathfinder rules
 ```
 
+## Configuration
+
+Some rules are right in general but wrong for a specific project. Add an optional
+`pr-pathfinder.toml` next to the repository root with an `ignore` list of rule ids:
+
+```toml
+ignore = ["community/license"]
+```
+
+Run `pr-pathfinder rules` to list stable identifiers. Unknown ids are rejected
+with an error. Without the file, every rule runs: the default behaviour never changes.
+
 Until the first package release, clone the repository and install it in an isolated environment.
 
 ## What the first release checks

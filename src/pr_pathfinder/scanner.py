@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from pathlib import Path
 
+from pr_pathfinder.config import load_config
 from pr_pathfinder.models import Finding, Rule, RuleContext, ScanResult
 from pr_pathfinder.rules import builtin_rules
 
@@ -20,7 +21,9 @@ def scan_repository(
     if not resolved_root.is_dir():
         raise NotADirectoryError(f"Repository path is not a directory: {resolved_root}")
 
-    ignored = frozenset(ignore or ())
+    if ignore is None:
+        ignore = load_config(resolved_root).ignore
+    ignored = frozenset(ignore)
     selected_rules = tuple(
         rule
         for rule in (rules if rules is not None else builtin_rules())

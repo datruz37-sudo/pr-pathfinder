@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 
 from pr_pathfinder import __version__
-from pr_pathfinder.config import load_config
 from pr_pathfinder.models import Severity
 from pr_pathfinder.reporters import render_json, render_markdown, render_text
 from pr_pathfinder.rules import builtin_rules
@@ -51,8 +50,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     try:
-        config = load_config(Path(args.path))
-        result = scan_repository(Path(args.path), ignore=config.ignore)
+        result = scan_repository(Path(args.path))
     except (OSError, UnicodeError, ValueError) as exc:
         parser.error(str(exc))
 

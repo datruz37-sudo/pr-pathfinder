@@ -36,9 +36,7 @@ def load_config(root: Path) -> Config:
         raise ValueError(f"Invalid {CONFIG_FILENAME}: expected a TOML document")
 
     raw_ignore = data.get("ignore", [])
-    if not isinstance(raw_ignore, list) or not all(
-        isinstance(item, str) for item in raw_ignore
-    ):
+    if not isinstance(raw_ignore, list) or not all(isinstance(item, str) for item in raw_ignore):
         raise ValueError(f"Invalid {CONFIG_FILENAME}: 'ignore' must be a list of rule ids")
 
     known_ids = {rule.rule_id for rule in builtin_rules()}
