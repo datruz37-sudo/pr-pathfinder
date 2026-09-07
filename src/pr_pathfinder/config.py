@@ -19,6 +19,7 @@ class Config:
     include: tuple[str, ...] | None = None
     ignore: tuple[str, ...] = ()
     severity_overrides: tuple[tuple[str, Severity], ...] = ()
+    warnings: tuple[str, ...] = ()
 
 
 def load_config(root: Path) -> Config:
@@ -51,6 +52,11 @@ def load_config(root: Path) -> Config:
         not isinstance(raw_include, list) or not all(isinstance(item, str) for item in raw_include)
     ):
         raise ValueError(f"Invalid {CONFIG_FILENAME}: 'include' must be a list of rule ids")
+    if raw_include is not None and not raw_include:
+        raise ValueError(
+            f"Invalid {CONFIG_FILENAME}: 'include' must list at least one rule id, "
+            "or be omitted to run every rule"
+        )
 
     raw_ignore = data.get("ignore", [])
     if not isinstance(raw_ignore, list) or not all(isinstance(item, str) for item in raw_ignore):
@@ -67,10 +73,11 @@ def load_config(root: Path) -> Config:
             "Run `pr-pathfinder rules` to list valid identifiers."
         )
 
-    unknown = [item for item in raw_ignore if item not in known_ids]
-    if unknown:
-        raise ValueError(
-            f"Invalid {CONFIG_FILENAME}: unknown rule ids: {', '.join(unknown)}. "
+    unknown_ignore = [item for item in raw_ignore if item not in known_ids]
+    warnings: list[str] = []
+    if unknown_ignore:
+        warnings.append(
+            f"Unknown rule ids in 'ignore' (no effect): {', '.join(unknown_ignore)}. "
             "Run `pr-pathfinder rules` to list valid identifiers."
         )
 
@@ -103,6 +110,7 @@ def load_config(root: Path) -> Config:
 
     return Config(
         include=None if raw_include is None else tuple(dict.fromkeys(raw_include)),
-        ignore=tuple(dict.fromkeys(raw_ignore)),
+        ignore=tuple(item for item in dict.fromkeys(raw_ignore) if item in known_ids),
         severity_overrides=tuple(severity_overrides),
+        warnings=tuple(warnings),
     )

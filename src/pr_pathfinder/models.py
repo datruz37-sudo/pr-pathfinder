@@ -7,6 +7,12 @@ from enum import IntEnum
 from pathlib import Path
 from typing import Protocol
 
+from pr_pathfinder import __version__
+
+#: Version of the machine-readable report contract (`ScanResult.to_dict()`).
+#: Bump when a field is added, removed, or changes meaning.
+SCHEMA_VERSION = 1
+
 
 class Severity(IntEnum):
     """Finding severity ordered from least to most important."""
@@ -96,7 +102,8 @@ class ScanResult:
 
     def to_dict(self) -> dict[str, object]:
         return {
-            "root": str(self.root),
+            "schema_version": SCHEMA_VERSION,
+            "tool_version": __version__,
             "score": self.score,
             "rules_run": self.rules_run,
             "counts": self.counts,

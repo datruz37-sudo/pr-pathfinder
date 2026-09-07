@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from pr_pathfinder import __version__
+from pr_pathfinder.config import load_config
 from pr_pathfinder.models import Severity
 from pr_pathfinder.reporters import render_json, render_markdown, render_sarif, render_text
 from pr_pathfinder.rules import builtin_rules
@@ -50,9 +51,15 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     try:
+        # Parsed twice (scanner loads it again): tiny file, keeps a single source of truth
+        # for validation while the scanner stays usable as a library.
+        config = load_config(Path(args.path))
         result = scan_repository(Path(args.path))
     except (OSError, UnicodeError, ValueError) as exc:
         parser.error(str(exc))
+
+    for warning in config.warnings:
+        print(f"warning: {warning}", file=sys.stderr)
 
     renderers = {
         "text": render_text,

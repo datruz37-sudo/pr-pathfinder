@@ -55,11 +55,16 @@ def test_backwards_compatible_without_config() -> None:
     assert "community/license" in {finding.rule_id for finding in result.findings}
 
 
-def test_unknown_rule_id_is_rejected(tmp_path: Path) -> None:
+def test_unknown_ignore_id_warns_and_continues(tmp_path: Path) -> None:
+    (tmp_path / "README.md").write_text("# Fixture\n", encoding="utf-8")
     (tmp_path / "pr-pathfinder.toml").write_text('ignore = ["nope/not-a-rule"]\n', encoding="utf-8")
 
-    with pytest.raises(ValueError, match="unknown rule ids"):
-        load_config(tmp_path)
+    config = load_config(tmp_path)
+
+    assert len(config.warnings) == 1
+    assert "nope/not-a-rule" in config.warnings[0]
+    result = scan_repository(tmp_path)
+    assert result.findings
 
 
 def test_unknown_include_rule_id_is_rejected(tmp_path: Path) -> None:
@@ -136,3 +141,33 @@ def test_unknown_setting_is_validated(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="unknown settings: ignroe"):
         load_config(tmp_path)
+
+
+def test_empty_include_is_rejected(tmp_path: Path) -> None:
+    (tmp_path / "pr-pathfinder.toml").write_text("include = []\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="at least one rule"):
+        load_config(tmp_path)
+
+
+def test_json_report_carries_versioned_contract() -> None:
+    from pr_pathfinder import __version__
+    from pr_pathfinder.models import SCHEMA_VERSION
+
+    payload = scan_repository(FIXTURES / "minimal").to_dict()
+
+    assert payload["schema_version"] == SCHEMA_VERSION == 1
+    assert payload["tool_version"] == __version__
+    assert "root" not in payload
+
+
+def test_cli_prints_config_warnings_to_stderr(tmp_path: Path, capsys) -> None:
+    (tmp_path / "README.md").write_text("# Fixture\n", encoding="utf-8")
+    (tmp_path / "pr-pathfinder.toml").write_text('ignore = ["nope/not-a-rule"]\n', encoding="utf-8")
+
+    exit_code = main(["check", str(tmp_path), "--format", "json", "--fail-on", "none"])
+
+    captured = capsys.readouterr()
+    assert exit_code == 0
+    assert "nope/not-a-rule" in captured.err
+    assert json.loads(captured.out)["findings"]

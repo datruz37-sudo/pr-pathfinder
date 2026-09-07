@@ -60,9 +60,16 @@ ignore = ["community/license"]
 ```
 
 Run `pr-pathfinder rules` to list stable identifiers. `ignore` wins when a rule appears in
-both lists. Unknown ids are rejected with an error, as are unknown settings and severity
-values. Valid severities are `info`, `warning`, and `error`. Without the file, every rule
-runs at its built-in severity: the default behaviour never changes.
+both lists. Unknown ids in `include` and `severity` are rejected with an error, as are
+unknown settings and severity values; unknown ids in `ignore` only print a warning, so
+renaming a rule never breaks existing configs. An empty `include` list is rejected: it
+would silently disable every check. Valid severities are `info`, `warning`, and `error`.
+Without the file, every rule runs at its built-in severity: the default behaviour never
+changes.
+
+Machine-readable reports carry `schema_version` (currently `1`) and `tool_version`, so
+consumers can detect format changes. Finding locations are repository-relative; the
+absolute checkout path is shown only in terminal output, never in JSON or SARIF.
 
 Until the first package release, clone the repository and install it in an isolated environment.
 
