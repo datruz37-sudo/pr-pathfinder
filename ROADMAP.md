@@ -19,8 +19,8 @@ This roadmap describes product gaps, not a promise of dates or a quota of pull r
 
 ## 0.3 — ecosystem awareness
 
-- Python command consistency checks
-- Node.js command consistency checks
+- [x] Python command consistency checks
+- [x] Node.js command consistency checks
 - Rust and Go setup conventions
 - monorepo discovery with explicit boundaries
 
