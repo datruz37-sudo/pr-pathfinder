@@ -28,7 +28,7 @@ gives up.
 Python 3.11 or newer is required.
 
 ```bash
-python -m pip install -e .
+python -m pip install pr-pathfinder
 pr-pathfinder check .
 ```
 
@@ -98,7 +98,8 @@ Entries are repo-relative paths (directories match everything beneath them); fin
 that cannot be attributed to a file are always shown. Combine with `--baseline` to
 ignore both old and untouched findings.
 
-Until the first package release, clone the repository and install it in an isolated environment.
+For local development, clone the repository and install it in editable mode
+(`python -m pip install -e .`) in an isolated environment.
 
 ## What the first release checks
 
