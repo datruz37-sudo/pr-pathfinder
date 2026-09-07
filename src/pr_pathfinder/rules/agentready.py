@@ -32,6 +32,11 @@ _SKIP_DIRS = frozenset(
         ".pytest_cache",
         ".ruff_cache",
         ".aider",
+        ".aider.chat.history.md",
+        ".aider.input.history",
+        ".continue",
+        ".cursorignore",
+        ".windsurf",
     }
 )
 

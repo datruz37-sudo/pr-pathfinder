@@ -9,14 +9,23 @@ from pr_pathfinder.models import Finding, Rule, RuleContext, ScanResult
 from pr_pathfinder.rules import builtin_rules
 
 
-def scan_repository(root: Path, rules: Iterable[Rule] | None = None) -> ScanResult:
+def scan_repository(
+    root: Path,
+    rules: Iterable[Rule] | None = None,
+    ignore: Iterable[str] | None = None,
+) -> ScanResult:
     """Run rules against a local repository without modifying it."""
 
     resolved_root = root.expanduser().resolve()
     if not resolved_root.is_dir():
         raise NotADirectoryError(f"Repository path is not a directory: {resolved_root}")
 
-    selected_rules = tuple(rules if rules is not None else builtin_rules())
+    ignored = frozenset(ignore or ())
+    selected_rules = tuple(
+        rule
+        for rule in (rules if rules is not None else builtin_rules())
+        if rule.rule_id not in ignored
+    )
     context = RuleContext(root=resolved_root)
     findings: list[Finding] = []
     for rule in selected_rules:

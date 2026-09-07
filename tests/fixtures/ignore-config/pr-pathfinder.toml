@@ -1,0 +1,2 @@
+# Fixture config: suppress only the license rule.
+ignore = ["community/license"]
