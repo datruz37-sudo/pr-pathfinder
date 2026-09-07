@@ -12,7 +12,7 @@ from pr_pathfinder.config import load_config
 from pr_pathfinder.models import Severity
 from pr_pathfinder.reporters import render_json, render_markdown, render_sarif, render_text
 from pr_pathfinder.rules import builtin_rules
-from pr_pathfinder.scanner import scan_repository
+from pr_pathfinder.scanner import load_changed_files, scan_repository
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -49,6 +49,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="record current findings to a baseline file and exit 0",
     )
+    check.add_argument(
+        "--changed-files",
+        metavar="FILE",
+        default=None,
+        help="report only findings touching paths listed in FILE (e.g. git diff output)",
+    )
 
     subparsers.add_parser("rules", help="list built-in checks")
     return parser
@@ -77,7 +83,10 @@ def main(argv: list[str] | None = None) -> int:
         known: frozenset[str] | None = None
         if args.baseline is not None:
             known = load_baseline(Path(args.baseline))
-        result = scan_repository(Path(args.path), baseline=known)
+        touched: frozenset[str] | None = None
+        if args.changed_files is not None:
+            touched = load_changed_files(Path(args.changed_files))
+        result = scan_repository(Path(args.path), baseline=known, changed_files=touched)
     except (OSError, UnicodeError, ValueError) as exc:
         parser.error(str(exc))
 

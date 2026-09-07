@@ -85,6 +85,19 @@ The baseline file stores stable finding fingerprints (rule, location, title — 
 paths), so it works across machines and in CI. Fixed findings simply disappear from
 later reports; unknown entries are ignored.
 
+## Changed files: check pull requests incrementally
+
+Report only findings that touch files changed in a pull request:
+
+```bash
+git diff --name-only origin/main...HEAD > changed.txt
+pr-pathfinder check . --changed-files changed.txt --fail-on warning
+```
+
+Entries are repo-relative paths (directories match everything beneath them); findings
+that cannot be attributed to a file are always shown. Combine with `--baseline` to
+ignore both old and untouched findings.
+
 Until the first package release, clone the repository and install it in an isolated environment.
 
 ## What the first release checks

@@ -14,6 +14,7 @@ to follow Semantic Versioning after the public API stabilizes.
 - absolute checkout path removed from JSON output
 - new rules: `community/changelog` and `community/runnable-commands`
 - baseline files: record known findings, report only new ones (`--baseline`, `--write-baseline`)
+- changed-files mode: report only findings touching listed paths (`--changed-files`)
 - missing-file findings list every searched location
 - `bug-report.yml` and `bug-report.md` recognized as bug templates
 - optional `pr-pathfinder.toml` configuration with an `ignore` list of rule ids

@@ -27,9 +27,9 @@ This roadmap describes product gaps, not a promise of dates or a quota of pull r
 ## 0.4 — CI interoperability
 
 - [x] SARIF reporter
-- stable JSON schema
-- baseline files for gradual adoption
-- changed-files mode without network access
+- [x] stable JSON schema
+- [x] baseline files for gradual adoption
+- [x] changed-files mode without network access
 
 ## Later exploration
 
