@@ -83,6 +83,8 @@ Until the first package release, clone the repository and install it in an isola
 - instructions for automated readers (`AGENTS.md` or `CLAUDE.md`)
 - text files too large to be read in a single pass
 - documented `make` targets that have no `Makefile` behind them
+- a changelog recording what changed between releases
+- contributor guides showing at least one runnable command
 
 The first release intentionally uses conservative, local checks. A missing file does not prove a
 project is unhealthy, and a present file does not prove its process works. Findings are review

@@ -11,6 +11,7 @@ to follow Semantic Versioning after the public API stabilizes.
 - unknown `ignore` rule ids print a warning instead of failing the scan
 - empty `include` list rejected as a configuration error
 - absolute checkout path removed from JSON output
+- new rules: `community/changelog` and `community/runnable-commands`
 - optional `pr-pathfinder.toml` configuration with an `ignore` list of rule ids
 - initial local scanner and explainable rule model
 - community-health and pull-request automation checks

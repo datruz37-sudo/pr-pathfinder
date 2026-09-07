@@ -37,6 +37,36 @@ class ContributingContentRule:
         ]
 
 
+class RunnableCommandsRule:
+    """Require the contributor guide to show at least one command to run."""
+
+    rule_id = "community/runnable-commands"
+    summary = "Contributor guide shows commands that can be copied and run"
+
+    _fenced = re.compile(r"```.*?```", re.DOTALL)
+    _inline = re.compile(r"`[^`\n]+`")
+
+    def check(self, context: RuleContext) -> list[Finding]:
+        path, content = context.read_first("CONTRIBUTING.md", ".github/CONTRIBUTING.md")
+        if path is None:
+            return []
+        if self._fenced.search(content) or self._inline.search(content):
+            return []
+        return [
+            Finding(
+                rule_id=self.rule_id,
+                severity=Severity.WARNING,
+                title="Contributor guide shows no runnable command",
+                detail=(
+                    f"{path} describes the process but never shows a command, so a newcomer has "
+                    "to guess what to type."
+                ),
+                recommendation="Add the exact setup and test commands in a fenced code block.",
+                path=path,
+            )
+        ]
+
+
 class CodeOfConductContactRule:
     rule_id = "community/code-of-conduct-contact"
     summary = "Code of conduct has a private reporting contact"
@@ -102,6 +132,19 @@ RULES: tuple[Rule, ...] = (
         recommendation="Add SECURITY.md with supported versions and a private reporting route.",
         severity=Severity.WARNING,
     ),
+    RequiredFileRule(
+        rule_id="community/changelog",
+        summary="Repository records what changed between releases",
+        paths=("CHANGELOG.md", "CHANGES.md", "HISTORY.md"),
+        title="Changelog is missing",
+        detail="Readers cannot tell what changed since the version they last looked at.",
+        recommendation=(
+            "Add a changelog with one section per release, or point to the releases page "
+            "from the README."
+        ),
+        severity=Severity.WARNING,
+    ),
+    RunnableCommandsRule(),
     ContributingContentRule(),
     CodeOfConductContactRule(),
 )
