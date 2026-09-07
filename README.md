@@ -80,6 +80,8 @@ Until the first package release, clone the repository and install it in an isola
 - a private conduct-reporting route
 - issue and pull-request templates
 - pull-request CI that appears to run a test, check, lint, or build step
+- documented npm scripts that `package.json` does not define
+- documented Python dev tools that no packaging file declares
 - instructions for automated readers (`AGENTS.md` or `CLAUDE.md`)
 - text files too large to be read in a single pass
 - documented `make` targets that have no `Makefile` behind them

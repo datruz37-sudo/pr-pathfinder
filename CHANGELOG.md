@@ -7,6 +7,7 @@ to follow Semantic Versioning after the public API stabilizes.
 
 ### Added
 
+- new rules: `ecosystem/node-scripts` and `ecosystem/python-dev-tools` (documented commands must be backed by the project files)
 - machine-readable reports carry `schema_version` and `tool_version`
 - unknown `ignore` rule ids print a warning instead of failing the scan
 - empty `include` list rejected as a configuration error
