@@ -9,7 +9,7 @@ description = "Explainable contributor-onboarding checks for open-source reposit
 readme = "README.md"
 requires-python = ">=3.11"
 license = {file = "LICENSE"}
-authors = [{name = "pr-pathfinder contributors"}]
+authors = [{name = "Leonardo Bramati"}, {name = "pr-pathfinder contributors"}]
 keywords = ["open-source", "contributors", "onboarding", "github", "cli"]
 classifiers = [
   "Development Status :: 3 - Alpha",
