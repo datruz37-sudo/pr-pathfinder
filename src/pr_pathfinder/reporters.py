@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 
+from pr_pathfinder import __version__
 from pr_pathfinder.models import ScanResult
 
 _SYMBOLS = {"error": "ERR", "warning": "WARN", "info": "INFO"}
@@ -70,3 +71,52 @@ def render_markdown(result: ScanResult) -> str:
     for finding in result.findings:
         lines.append(f"- **{finding.rule_id}:** {finding.recommendation}")
     return "\n".join(lines)
+
+
+def render_sarif(result: ScanResult) -> str:
+    """Render findings as SARIF 2.1.0 for CI and code-scanning consumers."""
+
+    levels = {"error": "error", "warning": "warning", "info": "note"}
+    rules: dict[str, dict[str, object]] = {}
+    results: list[dict[str, object]] = []
+
+    for finding in result.findings:
+        severity = finding.severity.name.lower()
+        rules.setdefault(
+            finding.rule_id,
+            {
+                "id": finding.rule_id,
+                "shortDescription": {"text": finding.title},
+                "help": {"text": finding.recommendation},
+            },
+        )
+        location: dict[str, object] = {
+            "physicalLocation": {"artifactLocation": {"uri": finding.path or "."}}
+        }
+        results.append(
+            {
+                "ruleId": finding.rule_id,
+                "level": levels[severity],
+                "message": {"text": f"{finding.title}: {finding.detail}"},
+                "locations": [location],
+                "properties": {"recommendation": finding.recommendation},
+            }
+        )
+
+    document = {
+        "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+        "version": "2.1.0",
+        "runs": [
+            {
+                "tool": {
+                    "driver": {
+                        "name": "pr-pathfinder",
+                        "version": __version__,
+                        "rules": list(rules.values()),
+                    }
+                },
+                "results": results,
+            }
+        ],
+    }
+    return json.dumps(document, indent=2, sort_keys=True)

@@ -12,10 +12,10 @@ This roadmap describes product gaps, not a promise of dates or a quota of pull r
 
 ## 0.2 — configurable checks
 
-- project configuration with documented precedence
-- rule include/exclude support
-- per-rule severity overrides
-- configuration validation and migration tests
+- [x] project configuration with documented precedence
+- [x] rule include/exclude support
+- [x] per-rule severity overrides
+- [x] configuration validation and migration tests
 
 ## 0.3 — ecosystem awareness
 
@@ -26,7 +26,7 @@ This roadmap describes product gaps, not a promise of dates or a quota of pull r
 
 ## 0.4 — CI interoperability
 
-- SARIF reporter
+- [x] SARIF reporter
 - stable JSON schema
 - baseline files for gradual adoption
 - changed-files mode without network access
