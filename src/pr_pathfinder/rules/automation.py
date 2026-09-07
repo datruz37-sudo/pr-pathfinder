@@ -57,6 +57,8 @@ RULES: tuple[Rule, ...] = (
             ".github/ISSUE_TEMPLATE/bug.yml",
             ".github/ISSUE_TEMPLATE/bug_report.yml",
             ".github/ISSUE_TEMPLATE/bug_report.md",
+            ".github/ISSUE_TEMPLATE/bug-report.yml",
+            ".github/ISSUE_TEMPLATE/bug-report.md",
         ),
         title="Bug report template is missing",
         detail="Bug reports may omit reproduction steps and environment details.",

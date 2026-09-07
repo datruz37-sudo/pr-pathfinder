@@ -12,6 +12,8 @@ to follow Semantic Versioning after the public API stabilizes.
 - empty `include` list rejected as a configuration error
 - absolute checkout path removed from JSON output
 - new rules: `community/changelog` and `community/runnable-commands`
+- missing-file findings list every searched location
+- `bug-report.yml` and `bug-report.md` recognized as bug templates
 - optional `pr-pathfinder.toml` configuration with an `ignore` list of rule ids
 - initial local scanner and explainable rule model
 - community-health and pull-request automation checks

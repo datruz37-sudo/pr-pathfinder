@@ -22,12 +22,13 @@ class RequiredFileRule:
     def check(self, context: RuleContext) -> list[Finding]:
         if context.exists_any(*self.paths):
             return []
+        searched = ", ".join(self.paths)
         return [
             Finding(
                 rule_id=self.rule_id,
                 severity=self.severity,
                 title=self.title,
-                detail=self.detail,
+                detail=f"{self.detail} Looked in: {searched}.",
                 recommendation=self.recommendation,
                 path=self.paths[0],
             )
