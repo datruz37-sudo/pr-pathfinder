@@ -49,6 +49,9 @@ Until the first package release, clone the repository and install it in an isola
 - a private conduct-reporting route
 - issue and pull-request templates
 - pull-request CI that appears to run a test, check, lint, or build step
+- instructions for automated readers (`AGENTS.md` or `CLAUDE.md`)
+- text files too large to be read in a single pass
+- documented `make` targets that have no `Makefile` behind them
 
 The first release intentionally uses conservative, local checks. A missing file does not prove a
 project is unhealthy, and a present file does not prove its process works. Findings are review
