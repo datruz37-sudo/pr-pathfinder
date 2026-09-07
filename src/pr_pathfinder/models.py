@@ -46,6 +46,11 @@ class Finding:
         data["severity"] = self.severity.name.lower()
         return data
 
+    def fingerprint(self) -> str:
+        """Stable, machine-independent identity used by baselines."""
+
+        return "|".join([self.rule_id, self.path or "", self.title])
+
 
 @dataclass(frozen=True, slots=True)
 class RuleContext:

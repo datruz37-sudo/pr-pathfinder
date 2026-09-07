@@ -15,6 +15,7 @@ def scan_repository(
     root: Path,
     rules: Iterable[Rule] | None = None,
     ignore: Iterable[str] | None = None,
+    baseline: Iterable[str] | None = None,
 ) -> ScanResult:
     """Run rules against a local repository without modifying it."""
 
@@ -43,6 +44,9 @@ def scan_repository(
             )
 
     findings.sort(key=lambda item: (-int(item.severity), item.rule_id, item.path or ""))
+    if baseline is not None:
+        known = frozenset(baseline)
+        findings = [item for item in findings if item.fingerprint() not in known]
     return ScanResult(
         root=resolved_root,
         rules_run=len(selected_rules),

@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from pr_pathfinder import __version__
+from pr_pathfinder.baseline import load_baseline, write_baseline
 from pr_pathfinder.config import load_config
 from pr_pathfinder.models import Severity
 from pr_pathfinder.reporters import render_json, render_markdown, render_sarif, render_text
@@ -36,6 +37,18 @@ def build_parser() -> argparse.ArgumentParser:
         default="error",
         help="lowest finding severity that returns exit code 1",
     )
+    check.add_argument(
+        "--baseline",
+        metavar="FILE",
+        default=None,
+        help="report only findings not recorded in a baseline file",
+    )
+    check.add_argument(
+        "--write-baseline",
+        metavar="FILE",
+        default=None,
+        help="record current findings to a baseline file and exit 0",
+    )
 
     subparsers.add_parser("rules", help="list built-in checks")
     return parser
@@ -54,12 +67,19 @@ def main(argv: list[str] | None = None) -> int:
         # Parsed twice (scanner loads it again): tiny file, keeps a single source of truth
         # for validation while the scanner stays usable as a library.
         config = load_config(Path(args.path))
-        result = scan_repository(Path(args.path))
+        for warning in config.warnings:
+            print(f"warning: {warning}", file=sys.stderr)
+        if args.write_baseline is not None:
+            result = scan_repository(Path(args.path))
+            write_baseline(Path(args.write_baseline), result.findings)
+            print(f"Baseline written to {args.write_baseline}", file=sys.stderr)
+            return 0
+        known: frozenset[str] | None = None
+        if args.baseline is not None:
+            known = load_baseline(Path(args.baseline))
+        result = scan_repository(Path(args.path), baseline=known)
     except (OSError, UnicodeError, ValueError) as exc:
         parser.error(str(exc))
-
-    for warning in config.warnings:
-        print(f"warning: {warning}", file=sys.stderr)
 
     renderers = {
         "text": render_text,

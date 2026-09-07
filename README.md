@@ -71,6 +71,20 @@ Machine-readable reports carry `schema_version` (currently `1`) and `tool_versio
 consumers can detect format changes. Finding locations are repository-relative; the
 absolute checkout path is shown only in terminal output, never in JSON or SARIF.
 
+## Baseline: adopt gradually
+
+A large repository rarely starts clean. Record the current findings once, then get
+alerted only about new ones:
+
+```bash
+pr-pathfinder check . --write-baseline baseline.json
+pr-pathfinder check . --baseline baseline.json --fail-on warning
+```
+
+The baseline file stores stable finding fingerprints (rule, location, title — no machine
+paths), so it works across machines and in CI. Fixed findings simply disappear from
+later reports; unknown entries are ignored.
+
 Until the first package release, clone the repository and install it in an isolated environment.
 
 ## What the first release checks
